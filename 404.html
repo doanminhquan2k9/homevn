@@ -1,48 +1,446 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Page Not Found</title>
+    <title>Trang không tồn tại | Hệ thống của bạn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #3f37c9;
+            --text: #2b2d42;
+            --text-light: #8d99ae;
+            --background: #f8f9fa;
+            --white: #ffffff;
+            --error: #ef233c;
+            --success: #4cc9f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --rounded-sm: 0.25rem;
+            --rounded: 0.5rem;
+            --rounded-lg: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            text-align: center;
-            padding: 50px;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
+
         .container {
-            max-width: 600px;
+            width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 0 1.5rem;
         }
-        h1 {
-            font-size: 50px;
-            color: #e74c3c;
+
+        .error-page {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 4rem 0;
         }
-        p {
-            font-size: 18px;
-            margin-bottom: 20px;
+
+        .error-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
         }
-        a {
-            color: #3498db;
+
+        .error-illustration {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 2rem;
+        }
+
+        .error-illustration svg {
+            width: 100%;
+            height: auto;
+        }
+
+        .error-code {
+            font-size: 6rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .error-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .error-message {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--rounded);
+            font-weight: 500;
             text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            outline: none;
         }
-        a:hover {
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background-color: var(--white);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--rounded-lg);
+            border: 1px solid #e2e8f0;
+            font-size: 1rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+            padding-right: 3rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+
+        .contact-section {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 2rem;
+        }
+
+        .contact-title {
+            font-size: 1.25rem;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .contact-card {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--rounded-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-platform {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .contact-link {
+            color: var(--text);
+            text-decoration: none;
+            word-break: break-all;
+            display: inline-block;
+            margin-top: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .contact-link:hover {
+            color: var(--primary);
             text-decoration: underline;
+        }
+
+        .platform-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 4rem;
+            }
+            
+            .error-title {
+                font-size: 1.5rem;
+            }
+            
+            .error-message {
+                font-size: 1rem;
+            }
+            
+            .error-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>404</h1>
-        <p>Oops! The page you're looking for doesn't exist.</p>
-        <p>You may have mistyped the address or the page may have moved.</p>
-        <p><a href="/">Go back to the homepage</a></p>
+    <div class="error-page">
+        <div class="container">
+            <div class="error-content">
+                <div class="error-illustration">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+                        <circle cx="400" cy="300" r="200" fill="#e2e8f0"/>
+                        <circle cx="400" cy="200" r="30" fill="#ffffff"/>
+                        <circle cx="350" cy="180" r="10" fill="#2b2d42"/>
+                        <circle cx="450" cy="180" r="10" fill="#2b2d42"/>
+                        <path d="M350,250 Q400,300 450,250" stroke="#2b2d42" stroke-width="5" fill="none"/>
+                        <path d="M200,400 L600,400" stroke="#4361ee" stroke-width="10" stroke-linecap="round"/>
+                        <path d="M250,450 L550,450" stroke="#4361ee" stroke-width="10" stroke-linecap="round"/>
+                        <path d="M300,500 L500,500" stroke="#4361ee" stroke-width="10" stroke-linecap="round"/>
+                        <circle cx="300" cy="100" r="15" fill="#ef233c" opacity="0.8"/>
+                        <circle cx="500" cy="150" r="10" fill="#4cc9f0" opacity="0.8"/>
+                        <circle cx="250" cy="250" r="8" fill="#7209b7" opacity="0.8"/>
+                    </svg>
+                </div>
+                <h1 class="error-code">404</h1>
+                <h2 class="error-title">Trang không tồn tại</h2>
+                <p class="error-message">
+                    Rất tiếc! Trang bạn đang tìm kiếm không tồn tại hoặc đã bị di chuyển.
+                    Vui lòng kiểm tra lại đường dẫn hoặc liên hệ với chúng tôi qua các kênh hỗ trợ bên dưới.
+                </p>
+                
+                <div class="search-box">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Tìm kiếm (ví dụ: index.php, about.html...)">
+                    <button class="search-btn" id="searchBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="error-actions">
+                    <a href="/" class="btn btn-primary">Về trang chủ</a>
+                    <button onclick="window.history.back()" class="btn btn-secondary">Quay lại</button>
+                </div>
+                
+                <div class="contact-section">
+                    <h3 class="contact-title">Liên hệ hỗ trợ</h3>
+                    <div class="contact-grid">
+                        <div class="contact-card">
+                            <div class="contact-platform">
+                                <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+                                </svg>
+                                Telegram Box 1
+                            </div>
+                            <a href="https://t.me/hethongdev" class="contact-link" target="_blank">https://t.me/hethongdev</a>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-platform">
+                                <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+                                </svg>
+                                Telegram Box 2
+                            </div>
+                            <a href="https://t.me/dichvumeta" class="contact-link" target="_blank">https://t.me/dichvumeta</a>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-platform">
+                                <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+                                </svg>
+                                Telegram Box 3
+                            </div>
+                            <a href="https://t.me/hotromxh24" class="contact-link" target="_blank">https://t.me/hotromxh24</a>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-platform">
+                                <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+                                </svg>
+                                Telegram Channel
+                            </div>
+                            <a href="https://t.me/ArrayCyber" class="contact-link" target="_blank">https://t.me/ArrayCyber</a>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-platform">
+                                <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"/>
+                                </svg>
+                                Zalo Box 1
+                            </div>
+                            <a href="https://zalo.me/g/ncbwdf702" class="contact-link" target="_blank">https://zalo.me/g/ncbwdf702</a>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-platform">
+                                <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"/>
+                                </svg>
+                                Zalo Box 2
+                            </div>
+                            <a href="https://zalo.me/g/sqcpon701" class="contact-link" target="_blank">https://zalo.me/g/sqcpon701</a>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-platform">
+                                <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+                                </svg>
+                                Telegram Admin
+                            </div>
+                            <a href="https://t.me/Vanduy0982" class="contact-link" target="_blank">https://t.me/Vanduy0982</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            
+            // Database of available pages
+            const pageDatabase = {
+                'index': '/index.php',
+                'index.php': '/index.php',
+                'home': '/index.php',
+                'trang chủ': '/index.php',
+                'trangchu': '/index.php'
+            };
+            
+            // Function to handle search
+            function handleSearch() {
+                const searchTerm = searchInput.value.trim().toLowerCase();
+                
+                if (!searchTerm) {
+                    alert('Vui lòng nhập từ khóa tìm kiếm');
+                    return;
+                }
+                
+                // Check if the search term matches any page exactly
+                if (pageDatabase[searchTerm]) {
+                    window.location.href = pageDatabase[searchTerm];
+                    return;
+                }
+                
+                // Check for partial matches
+                const matchedPages = Object.keys(pageDatabase).filter(key => 
+                    key.includes(searchTerm) || searchTerm.includes(key.replace('.php', ''))
+                );
+                
+                if (matchedPages.length > 0) {
+                    // If we find matches, redirect to the first one
+                    window.location.href = pageDatabase[matchedPages[0]];
+                } else {
+                    // If no matches found, show an alert
+                    alert(`Không tìm thấy trang phù hợp với "${searchTerm}". Vui lòng liên hệ hỗ trợ nếu bạn cần giúp đỡ.`);
+                }
+            }
+            
+            // Event listeners
+            searchBtn.addEventListener('click', handleSearch);
+            
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+            
+            // Auto-focus the search input
+            searchInput.focus();
+        });
+    </script>
 </body>
 </html>
